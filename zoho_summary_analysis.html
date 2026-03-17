@@ -1,0 +1,303 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Zoho CRM Audit Memo</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 32px; color: #222; line-height: 1.45; }
+h1,h2,h3 { color: #111; }
+.small { color:#555; font-size: 14px; }
+.callout { background: #f5f7fb; border-left: 4px solid #4a67d6; padding: 12px 16px; margin: 14px 0; }
+.tbl { border-collapse: collapse; width: 100%; margin: 12px 0 24px 0; }
+.tbl th, .tbl td { border: 1px solid #ddd; padding: 8px; font-size: 14px; text-align: right; }
+.tbl th:first-child, .tbl td:first-child { text-align: left; }
+img { max-width: 100%; margin: 12px 0 24px 0; border:1px solid #ddd; }
+ul { margin-top: 6px; }
+code { background: #f0f0f0; padding: 2px 4px; }
+</style>
+</head>
+<body>
+<h1>Zoho CRM audit memo: downturn read from Nov 2025</h1>
+<p class="small">Based on 1,000,000 audit rows from Nov 2024 to Mar 2026. This is a CRM-behaviour analysis, not a direct revenue analysis.</p>
+
+<div class="callout">
+<b>Bottom line:</b> The downturn is real in the audit logs. The clearest break starts in <b>November 2025</b>, not January 2026. The strongest root-cause signal is a collapse in <b>lead creation and prospecting activity</b>, especially in TON. EB then shows weaker engagement quality. SMB underperformance is likely real commercially, but this audit file is too shallow to explain it cleanly.
+</div>
+
+<h2>1) Month-by-month trend</h2>
+<img src="human_activity_trend.png" alt="Human activity trend chart">
+
+<table class="dataframe tbl">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Series</th>
+      <th>Aug-Oct avg</th>
+      <th>Nov-Feb avg</th>
+      <th>Change %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Overall</td>
+      <td>7870.0</td>
+      <td>4828.0</td>
+      <td>-38.7</td>
+    </tr>
+    <tr>
+      <td>TON</td>
+      <td>4750.3</td>
+      <td>1889.2</td>
+      <td>-60.2</td>
+    </tr>
+    <tr>
+      <td>EB</td>
+      <td>1248.3</td>
+      <td>1125.0</td>
+      <td>-9.9</td>
+    </tr>
+    <tr>
+      <td>SMB</td>
+      <td>1606.0</td>
+      <td>1539.2</td>
+      <td>-4.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>2) What likely broke first</h2>
+<p>The cleanest leading indicator is <b>human-created leads</b>. Lead adds were stable in Aug-Sep 2025, spiked in Oct 2025, then fell off a cliff from Nov 2025 onward. The biggest single driver was <b>Printo Management</b> lead creation.</p>
+
+<img src="lead_creation_break.png" alt="Lead creation break chart">
+
+<ul>
+<li><b>All human lead adds</b>: Aug 279, Sep 258, Oct 1953, Nov 212, Dec 227, Jan 132, Feb 184</li>
+<li><b>Printo Management lead adds</b>: Aug 216, Sep 195, Oct 1905, Nov 131, Dec 128, Jan 62, Feb 75</li>
+</ul>
+
+<h2>3) Root-cause read by motion</h2>
+
+<h3>TON: this is where the break is loudest</h3>
+<p>TON activity falls from an Aug-Oct average of <b>4,750</b> to a Nov-Feb average of <b>1,889</b>, a drop of about <b>60%</b>.</p>
+<table class="dataframe tbl">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Module</th>
+      <th>Baseline Aug-Oct</th>
+      <th>Nov-Feb avg</th>
+      <th>Change %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Leads</td>
+      <td>2975.7</td>
+      <td>1015.2</td>
+      <td>-65.9</td>
+    </tr>
+    <tr>
+      <td>Notes</td>
+      <td>1336.7</td>
+      <td>621.2</td>
+      <td>-53.5</td>
+    </tr>
+    <tr>
+      <td>Calls</td>
+      <td>28.0</td>
+      <td>2.2</td>
+      <td>-92.0</td>
+    </tr>
+    <tr>
+      <td>Tasks</td>
+      <td>37.0</td>
+      <td>21.5</td>
+      <td>-41.9</td>
+    </tr>
+    <tr>
+      <td>Deals</td>
+      <td>367.0</td>
+      <td>228.8</td>
+      <td>-37.7</td>
+    </tr>
+    <tr>
+      <td>Contacts</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>-100.0</td>
+    </tr>
+    <tr>
+      <td>Accounts</td>
+      <td>0.0</td>
+      <td>0.2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>MOMs</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p><b>Read:</b> this looks like a top-of-funnel starvation problem plus weaker follow-through. Fewer fresh leads, fewer notes, almost no calls. That is not just lower closing; it is less pipeline creation work.</p>
+
+<h3>EB: pipeline handling continues, but quality gets worse</h3>
+<p>EB activity dips only about <b>10%</b> overall, but the underlying mix worsens.</p>
+<table class="dataframe tbl">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Module</th>
+      <th>Baseline Aug-Oct</th>
+      <th>Nov-Feb avg</th>
+      <th>Change %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Leads</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Notes</td>
+      <td>4.0</td>
+      <td>0.8</td>
+      <td>-81.2</td>
+    </tr>
+    <tr>
+      <td>Calls</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Tasks</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Deals</td>
+      <td>1008.0</td>
+      <td>989.0</td>
+      <td>-1.9</td>
+    </tr>
+    <tr>
+      <td>Contacts</td>
+      <td>55.3</td>
+      <td>39.0</td>
+      <td>-29.5</td>
+    </tr>
+    <tr>
+      <td>Accounts</td>
+      <td>12.0</td>
+      <td>11.8</td>
+      <td>-2.1</td>
+    </tr>
+    <tr>
+      <td>MOMs</td>
+      <td>169.0</td>
+      <td>84.5</td>
+      <td>-50.0</td>
+    </tr>
+  </tbody>
+</table>
+<p><b>Read:</b> deals are still being touched, but there are fewer MOMs and fewer contact/account touches. That usually means narrower account coverage, weaker meeting quality, or more selling happening outside CRM with weaker forecast truth.</p>
+
+<h3>SMB: weak diagnostic value from this file</h3>
+<p>SMB activity is broadly stable in the logs, down only about <b>4%</b> from Aug-Oct to Nov-Feb.</p>
+<table class="dataframe tbl">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Module</th>
+      <th>Baseline Aug-Oct</th>
+      <th>Nov-Feb avg</th>
+      <th>Change %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Leads</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Notes</td>
+      <td>8.3</td>
+      <td>0.2</td>
+      <td>-97.0</td>
+    </tr>
+    <tr>
+      <td>Calls</td>
+      <td>16.0</td>
+      <td>1.8</td>
+      <td>-89.1</td>
+    </tr>
+    <tr>
+      <td>Tasks</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Deals</td>
+      <td>1563.7</td>
+      <td>1530.8</td>
+      <td>-2.1</td>
+    </tr>
+    <tr>
+      <td>Contacts</td>
+      <td>11.7</td>
+      <td>4.2</td>
+      <td>-63.6</td>
+    </tr>
+    <tr>
+      <td>Accounts</td>
+      <td>6.3</td>
+      <td>2.2</td>
+      <td>-64.5</td>
+    </tr>
+    <tr>
+      <td>MOMs</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p><b>Read:</b> this file mainly shows deal-status activity for stores, not enough structured selling depth. So SMB may be down commercially, but the audit log is not the right scan to prove why.</p>
+
+<h2>4) Diagnostic tree</h2>
+<ul>
+<li><b>Question 1:</b> Did lead supply or lead allocation drop from Nov 2025?
+  <ul>
+    <li>Check campaigns stopped / imports stopped / assignment rules changed / TON owners changed.</li>
+    <li>If yes, that is the primary break.</li>
+  </ul>
+</li>
+<li><b>Question 2:</b> Did EB narrow to fewer active reps or fewer real meetings?
+  <ul>
+    <li>Check rep-level MOM frequency, active accounts per rep, stale opportunities, and touch freshness from Nov onward.</li>
+    <li>If yes, that is the second-order break.</li>
+  </ul>
+</li>
+<li><b>Question 3:</b> Is SMB actually a demand/conversion issue outside CRM?
+  <ul>
+    <li>Check store walk-ins, quote count, quote-to-order, lost reason mix, category inquiry mix, and average order value by store.</li>
+    <li>If yes, the root cause sits outside this audit file.</li>
+  </ul>
+</li>
+</ul>
+
+<h2>5) CEO actions for the next 7 days</h2>
+<ol>
+<li>Audit exactly what changed in lead generation / routing between Oct and Nov 2025.</li>
+<li>Pull rep-wise TON lead creation, touches, and conversion for Aug-Feb.</li>
+<li>Pull EB rep-wise MOM count, active accounts, and stale deals from Nov onward.</li>
+<li>For SMB, stop using audit logs as the main diagnostic and switch to footfall, quotes, category inquiries, and lost reasons.</li>
+</ol>
+
+</body>
+</html>
